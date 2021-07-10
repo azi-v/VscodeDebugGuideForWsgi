@@ -1,0 +1,19 @@
+version: '3.9'
+services: 
+    flaskapp:
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        ports: 
+        - 3031:3031
+        - 9191:9191
+        volumes: 
+        - /Users/yymt/Desktop/VscodeDebugGuideForWsgi:/usr/src/app
+    nginx:
+        image: nginx
+        volumes:
+        - ./nginx.conf:/etc/nginx/conf.d/uwsgi.conf:ro
+        depends_on:
+        - flaskapp
+        ports:
+        - 8080:8080    
